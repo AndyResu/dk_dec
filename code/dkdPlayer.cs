@@ -34,5 +34,15 @@ namespace dkdGame
 			base.OnKilled();
 			EnableDrawing = false;
 		}
+
+		[Event.Tick]
+		public void tooLowDeath()
+		{
+			var toggle = true;
+			if(toggle && Position.z <= -25){
+				toggle = false;
+				Respawn();
+			}
+		}
 	}
 }
