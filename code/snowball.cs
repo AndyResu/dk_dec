@@ -33,7 +33,7 @@ namespace dkdGame
 			// EnableSelfCollisions = false;
 			EnableTouch = true;
 
-			base.Spawn();
+			// base.Spawn();
 		}
 
 		public override void Touch(Entity other)
@@ -47,10 +47,11 @@ namespace dkdGame
 				// Log.Info("cowburgled");
 			}
 			// Log.Info(timeSinceCreated);
-			if(IsServer && timeSinceCreated > idleTimeout)
+			if(IsServer && timeSinceCreated > idleTimeout && !isStill)
 			{
 				timeSinceCreated = 0;
 				teleport();
+				Log.Info("Touch Teleport");
 			}
 			base.Touch(other);
 		}
@@ -65,7 +66,9 @@ namespace dkdGame
 					// declog
 					timeSinceStopped = idleTimeout+5;
 					isStill = false;
-					teleport();
+					// teleport();
+					Log.Info("Declog");
+					Velocity = new Vector3(0,0,100);
 				}
 				if(isStill && timeSinceStopped >= idleTimeout+5){
 					timeSinceStopped = 0;
@@ -74,7 +77,7 @@ namespace dkdGame
 		}
 
 		public void teleport(){
-			Log.Info("Teleported");
+			// Log.Info("Teleported");
 			Position = new Vector3(504, 1232, 0); // do this to make sure while moving to the position it does not hit the player
 			Position = new Vector3(rng.Next(-10, 11), rng.Next(-10, 11), 0) + snowballSpawnerPos;
 		}

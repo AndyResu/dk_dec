@@ -12,6 +12,7 @@ namespace dkdGame
 		public int count = 0;
 		public Random rng = new Random();
 		public int rngVal = 1000;
+		public int maxSnowballz = 16;
 
 		public dkdGame()
 		{
@@ -35,8 +36,8 @@ namespace dkdGame
 		[Event.Tick]
 		public void snowballSpawn()
 		{
-			if(count < 25){
-				rngVal = rng.Next(6,12);
+			if(IsServer && count < maxSnowballz){
+				rngVal = rng.Next(3,6);
 				if(timeSinceCreated >= rngVal){
 					timeSinceCreated = 0;
 					var snowball = new Snowball();
