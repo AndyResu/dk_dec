@@ -9,13 +9,16 @@ namespace dkdGame
 	public partial class dkdGame : Sandbox.Game
 	{
 		public TimeSince timeSinceCreated = 0;
+		public int count = 0;
+		public Random rng = new Random();
+		public int rngVal = 1000;
 
 		public dkdGame()
 		{
 			if ( IsServer )
 			{
-				snowballSpawn();
-				new DeletionBox();
+				// snowballSpawn();
+				// new DeletionBox();
 			}
 		}
 
@@ -32,12 +35,14 @@ namespace dkdGame
 		[Event.Tick]
 		public void snowballSpawn()
 		{
-			var rng = new Random();
-			var rngVal = rng.Next(6,12);
-			if(timeSinceCreated >= rngVal){
-				timeSinceCreated = 0;
-				var snowball = new Snowball();
-				Log.Info("SNOWBALL!");
+			if(count < 25){
+				rngVal = rng.Next(6,12);
+				if(timeSinceCreated >= rngVal){
+					timeSinceCreated = 0;
+					var snowball = new Snowball();
+					count += 1;
+					Log.Info("SNOWBALL! " + count);
+				}
 			}
 		}
 	}

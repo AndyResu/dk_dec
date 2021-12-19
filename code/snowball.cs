@@ -17,6 +17,9 @@ namespace dkdGame
 		public Vector3 snowballSpawnerPos = new Vector3(504,1232,1296);
 		public Random rng = new Random();
 		public TimeSince timeSinceCreated = 0;
+		public TimeSince timeSinceStopped = 30;
+		public int idleTimeout = 25;
+		public bool isStill = false; 
 
 		public override void Spawn()
 		{
@@ -44,14 +47,36 @@ namespace dkdGame
 				// Log.Info("cowburgled");
 			}
 			// Log.Info(timeSinceCreated);
-			if(IsServer && timeSinceCreated > 25.0)
+			if(IsServer && timeSinceCreated > idleTimeout)
 			{
 				timeSinceCreated = 0;
-				Log.Info("Teleported");
-				Position = new Vector3(504, 1232, 0); // do this to make sure while moving to the position it does not hit the player
-				Position = new Vector3(rng.Next(-10, 11), rng.Next(-10, 11), 0) + snowballSpawnerPos;
+				teleport();
 			}
 			base.Touch(other);
+		}
+
+		[Event.Tick]
+		public void declog(){
+			if(IsServer){
+				if(Velocity.x == 0 && Velocity.y == 0 && Velocity.z == 0){
+					isStill = true;
+				}
+				if(isStill && timeSinceStopped > idleTimeout && timeSinceStopped < idleTimeout+5){
+					// declog
+					timeSinceStopped = idleTimeout+5;
+					isStill = false;
+					teleport();
+				}
+				if(isStill && timeSinceStopped >= idleTimeout+5){
+					timeSinceStopped = 0;
+				}
+			}
+		}
+
+		public void teleport(){
+			Log.Info("Teleported");
+			Position = new Vector3(504, 1232, 0); // do this to make sure while moving to the position it does not hit the player
+			Position = new Vector3(rng.Next(-10, 11), rng.Next(-10, 11), 0) + snowballSpawnerPos;
 		}
 	}
 }
