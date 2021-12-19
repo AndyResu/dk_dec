@@ -68,7 +68,7 @@ namespace dkdGame
 					isStill = false;
 					// teleport();
 					Log.Info("Declog");
-					Velocity = new Vector3(0,0,100);
+					Velocity = new Vector3(150,0,150);
 				}
 				if(isStill && timeSinceStopped >= idleTimeout+5){
 					timeSinceStopped = 0;
