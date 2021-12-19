@@ -23,7 +23,7 @@ namespace dkdGame
 		[DefaultValue("35 35 35")]
 		[Net]
 		public Vector3 Maxs { get; set; } = new Vector3(35, 35, 35);
-		public Vector3 snowballSpawnerPos = new Vector3(-616,996,788);
+		public Vector3 snowballSpawnerPos = new Vector3(504,1232,1296);
 		public Random rng = new Random();
 
 		public ModelEntity Snowballe;
