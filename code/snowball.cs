@@ -51,7 +51,7 @@ namespace dkdGame
 			{
 				timeSinceCreated = 0;
 				teleport();
-				Log.Info("Touch Teleport");
+				// Log.Info("Touch Teleport");
 			}
 			base.Touch(other);
 		}
@@ -67,7 +67,7 @@ namespace dkdGame
 					timeSinceStopped = idleTimeout+5;
 					isStill = false;
 					// teleport();
-					Log.Info("Declog");
+					// Log.Info("Declog");
 					Velocity = new Vector3(150,0,150);
 				}
 				if(isStill && timeSinceStopped >= idleTimeout+5){

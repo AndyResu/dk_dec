@@ -42,7 +42,7 @@ namespace dkdGame
 					timeSinceCreated = 0;
 					var snowball = new Snowball();
 					count += 1;
-					Log.Info("SNOWBALL! " + count);
+					// Log.Info("SNOWBALL! " + count);
 				}
 			}
 		}

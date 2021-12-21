@@ -4,7 +4,7 @@ namespace dkdGame
 {
 	partial class dkdPlayer : Player
 	{
-		public String viewType = "arcade";
+		public string viewType = "arcade";
 		
 		public override void Respawn()
 		{

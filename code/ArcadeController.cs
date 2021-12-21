@@ -13,7 +13,7 @@ namespace Sandbox
 		public override void FrameSimulate()
 		{
 			base.FrameSimulate();
-			EyeRot = Input.Rotation;
+			// EyeRot = Input.Rotation;
 		}
 
 		public override void Simulate()
@@ -22,7 +22,7 @@ namespace Sandbox
 			UpdateBBox();
 
 			EyePosLocal += TraceOffset;
-			EyeRot = Input.Rotation;
+			// EyeRot = Input.Rotation;
 
 			RestoreGroundPos();
 
@@ -35,11 +35,11 @@ namespace Sandbox
 			//
 			// Start Gravity
 			//
-			if ( !Swimming && !IsTouchingLadder )
+			if ( !Swimming )
 			{
 				Velocity -= new Vector3( 0, 0, Gravity * 0.5f ) * Time.Delta;
 				Velocity += new Vector3( 0, 0, BaseVelocity.z ) * Time.Delta;
-				BaseVelocity = BaseVelocity.WithZ( 0 );
+				BaseVelocity = BaseVelocity.WithZ(0);
 			}
 
 			if ( AutoJump ? Input.Down( InputButton.Jump ) : Input.Pressed( InputButton.Jump ) )
@@ -60,17 +60,26 @@ namespace Sandbox
 				}
 			}
 
-			//
-			// Work out wish velocity.. just take input, rotate it to view, clamp to -1, 1
-			//
-			WishVelocity = new Vector3( Input.Forward, Input.Left, 0 );
-			var inSpeed = WishVelocity.Length.Clamp( 0, 1 );
-			WishVelocity *= Input.Rotation.Angles().WithPitch( 0 ).ToRotation();
-
-			if ( !Swimming && !IsTouchingLadder )
-			{
-				WishVelocity = WishVelocity.WithZ( 0 );
+			// pick a WASD direction.
+			int fwd = 0;
+			int left = 0;
+			if(Input.Down(InputButton.Forward)){
+				fwd += 0;
+				left += 1;
+			}else if(Input.Down(InputButton.Left)){
+				fwd += -1;
+				left += 0;
+			}else if(Input.Down(InputButton.Back)){
+				fwd += 0;
+				left += -1;
+			}else if(Input.Down(InputButton.Right)){
+				fwd += 1;
+				left += 0;
 			}
+			WishVelocity = new Vector3( fwd, left, 0 );
+			var inSpeed = WishVelocity.Length.Clamp( -1, 1 );
+			// WishVelocity *= Input.Rotation.Angles().WithPitch( 0 ).ToRotation();
+			WishVelocity = WishVelocity.WithZ( 0 );
 
 			WishVelocity = WishVelocity.Normal * inSpeed;
 			WishVelocity *= GetWishSpeed();
@@ -78,16 +87,7 @@ namespace Sandbox
 			Duck.PreTick();
 
 			bool bStayOnGround = false;
-			if ( Swimming )
-			{
-				ApplyFriction( 1 );
-				WaterMove();
-			}
-			else if ( IsTouchingLadder )
-			{
-				LadderMove();
-			}
-			else if ( GroundEntity != null )
+			if ( GroundEntity != null )
 			{
 				bStayOnGround = true;
 				WalkMove();
@@ -96,14 +96,10 @@ namespace Sandbox
 			{
 				AirMove();
 			}
-
 			CategorizePosition( bStayOnGround );
 
 			// FinishGravity
-			if ( !Swimming && !IsTouchingLadder )
-			{
-				Velocity -= new Vector3( 0, 0, Gravity * 0.5f ) * Time.Delta;
-			}
+			Velocity -= new Vector3( 0, 0, Gravity * 0.5f ) * Time.Delta;
 
 			if ( GroundEntity != null )
 			{
@@ -113,7 +109,7 @@ namespace Sandbox
 			SaveGroundPos();
 		}
 
-		public virtual float GetWishSpeed()
+		public override float GetWishSpeed()
 		{
 			var ws = Duck.GetWishSpeed();
 			if ( ws >= 0 ) return ws;
@@ -124,7 +120,7 @@ namespace Sandbox
 			return DefaultSpeed;
 		}
 
-		public virtual void WalkMove()
+		public override void WalkMove()
 		{
 			var wishdir = WishVelocity.Normal;
 			var wishspeed = WishVelocity.Length;
@@ -139,10 +135,8 @@ namespace Sandbox
 			//   Player.SetAnimParam( "forward", Input.Forward );
 			//   Player.SetAnimParam( "sideward", Input.Right );
 			//   Player.SetAnimParam( "wishspeed", wishspeed );
-			//    Player.SetAnimParam( "walkspeed_scale", 2.0f / 190.0f );
+			//   Player.SetAnimParam( "walkspeed_scale", 2.0f / 190.0f );
 			//   Player.SetAnimParam( "runspeed_scale", 2.0f / 320.0f );
-
-			//  DebugOverlay.Text( 0, Pos + Vector3.Up * 100, $"forward: {Input.Forward}\nsideward: {Input.Right}" );
 
 			// Add in any base velocity to the current velocity.
 			Velocity += BaseVelocity;
@@ -157,7 +151,6 @@ namespace Sandbox
 
 				// first try just moving to the destination
 				var dest = (Position + Velocity * Time.Delta).WithZ( Position.z );
-
 				var pm = TraceBBox( Position, dest );
 
 				if ( pm.Fraction == 1 )
@@ -171,7 +164,6 @@ namespace Sandbox
 			}
 			finally
 			{
-
 				// Now pull the base velocity back out.   Base velocity is set if you are on a moving object, like a conveyor (or maybe another monster?)
 				Velocity -= BaseVelocity;
 			}
@@ -179,7 +171,7 @@ namespace Sandbox
 			StayOnGround();
 		}
 
-		public virtual void StepMove()
+		public override void StepMove()
 		{
 			MoveHelper mover = new MoveHelper( Position, Velocity );
 			mover.Trace = mover.Trace.Size( mins, maxs ).Ignore( Pawn );
@@ -191,7 +183,7 @@ namespace Sandbox
 			Velocity = mover.Velocity;
 		}
 
-		public virtual void Move()
+		public override void Move()
 		{
 			MoveHelper mover = new MoveHelper( Position, Velocity );
 			mover.Trace = mover.Trace.Size( mins, maxs ).Ignore( Pawn );
@@ -201,6 +193,17 @@ namespace Sandbox
 
 			Position = mover.Position;
 			Velocity = mover.Velocity;
+		}
+		void RestoreGroundPos()
+		{
+			if ( GroundEntity == null || GroundEntity.IsWorld )
+				return;
+		}
+
+		void SaveGroundPos()
+		{
+			if ( GroundEntity == null || GroundEntity.IsWorld )
+				return;
 		}
 	}
 }
