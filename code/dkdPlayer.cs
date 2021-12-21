@@ -1,19 +1,24 @@
 ﻿using Sandbox;
-using System;
-using System.Linq;
 
 namespace dkdGame
 {
 	partial class dkdPlayer : Player
 	{
+		public String viewType = "arcade";
+		
 		public override void Respawn()
 		{
 			SetModel( "models/citizen/citizen.vmdl" );
 
-			Controller = new WalkController();
 			Animator = new StandardPlayerAnimator();
 
-			Camera = new FirstPersonCamera();
+			if(viewType == "arcade"){
+				Camera = new ArcadeCamera();
+				Controller = new ArcadeController();
+			}else{
+				Camera = new FirstPersonCamera();
+				Controller = new WalkController();
+			}
 
 			EnableAllCollisions = true;
 			EnableDrawing = true;
