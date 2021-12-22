@@ -3,8 +3,9 @@
 You need to climb the mountain to get back to the snowball machine... 
 but your coworker Dankey Kang already turned it on!
 
-Dodge snowballs to get to the top of the mountain and discover hidden secrets in...
-### **DANKEY KANG'S DECEMBER**
+Dodge snowballs to get to the top of the mountain and discover hidden secrets in... **DANKEY KANG'S DECEMBER**
+
+
 ###### dk_dec
 
 
