@@ -23,6 +23,27 @@ namespace dkdGame
 			}
 		}
 
+		[ServerCmd("Code")]
+		public static void Code(string code)
+		{
+			// the client that is calling the console command
+			var callingClient = ConsoleSystem.Caller;
+			try{
+				if(code.Equals("virst")){
+					// do a vr
+				}
+				}else{
+					Player targetPlayer = (Player) callingClient.Pawn;
+					dkdPlayer targetDkdPlayer = (dkdPlayer) targetPlayer;
+					targetDkdPlayer.viewType = code;
+					targetDkdPlayer.Respawn();
+				}
+			} catch (Exception e){
+				// This will help catch (& display) any type-casting errors
+				Log.Error(e);
+			}
+		}
+
 		public override void ClientJoined( Client client )
 		{
 			base.ClientJoined( client );

@@ -4,7 +4,7 @@ namespace dkdGame
 {
 	partial class dkdPlayer : Player
 	{
-		public string viewType = "arcade";
+		public string viewType = "";
 		
 		public override void Respawn()
 		{
@@ -12,12 +12,16 @@ namespace dkdGame
 
 			Animator = new StandardPlayerAnimator();
 
-			if(viewType == "arcade"){
-				Camera = new ArcadeCamera();
-				Controller = new ArcadeController();
-			}else{
+			Log.Info(viewType);
+			if(viewType.Equals("virst")){
 				Camera = new FirstPersonCamera();
 				Controller = new WalkController();
+			}else if(viewType.Equals("first")){
+				Camera = new FirstPersonCamera();
+				Controller = new WalkController();
+			}else{ // arcade
+				Camera = new ArcadeCamera();
+				Controller = new ArcadeController();
 			}
 
 			EnableAllCollisions = true;
