@@ -11,7 +11,8 @@ Dodge snowballs to get to the top of the mountain and discover hidden secrets in
 ###### dk_dec
 ###### a S&box gamemode
 Look for 'Dankey Kang's December Map' in the S&box map list.
-
+Made for the 2021 Eagle One Jambox. This gamemode can be found in S&box under "Dankey Kang's December". 
+Be sure to chose the map of the same name and picture and not construct lol.
 
 ## Credits:
 > Valve - Source 2
