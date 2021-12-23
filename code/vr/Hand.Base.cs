@@ -45,5 +45,46 @@ namespace dkdGame
 			SetAnimFloat( "Ring", InputHand.GetFingerCurl( 3 ) );
 			SetAnimFloat( "Thumb", InputHand.GetFingerCurl( 0 ) );
 		}
+
+		public bool isGrabbing = false;
+		public static int sizee = 20;
+		public Vector3 bbox = new Vector3(0,0,sizee/2);
+		// public bool isGrabbingWithTrigger = false;
+		// public bool isGrabbingWithGrip = false;
+		public Entity itemGrabbed;
+		public Vector3 lastPos;
+
+		[Event.Tick]
+		public void pickupItem()
+		{
+			if(!isGrabbing && (TriggerPressed || GripPressed)){
+				// Log.Info("Infrared memes: " + TriggerPressed);
+				// Goal: grab item
+				// create a box sizee hammer-units large with the hand in the center
+				var startPos = Position + bbox;
+				var endPos = Position - bbox;
+				var tr = Trace.Ray(startPos, endPos)
+				.Size(sizee)
+				.Run();
+				// if the trace hits any objects, grab them
+				if (tr.Hit){
+					Log.Info("Grabed with fists: " + tr.Entity.ToString());
+					isGrabbing = true;
+					// remember if the item is held with either the tigger or grip
+						// if(TriggerPressed){isGrabbingWithTrigger = true;}
+						// if(GripPressed){isGrabbingWithGrip = true;}
+					// parent item temporarily to hand
+					itemGrabbed = tr.Entity;
+					itemGrabbed.Position = InputHand.Transform.Position + new Vector3(0,0,16);
+					lastPos = InputHand.Transform.Position;
+				}
+			}else if(isGrabbing && !(TriggerPressed || GripPressed)){
+				// TODO: grabe happens way too aggresively. Tie to a button LOL
+				// drop item
+				isGrabbing = false;
+				Log.Info("ungrabe");
+				itemGrabbed.Velocity = (InputHand.Transform.Position - lastPos).Normal *100; // bad velocity
+			}
+		}
 	}
 }

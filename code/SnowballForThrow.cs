@@ -17,7 +17,7 @@ namespace dkdGame
 	[EntityTool("SnowballForThrow", "dkdGame", "VR Player throw!")]
 	public partial class SnowballForThrow : ModelEntity
 	{
-		public Vector3 snowballForThrowSpawnerPos = new Vector3(690,1106,1356);
+		public Vector3 snowballForThrowSpawnerPos = new Vector3(692,1106,1386);
 		public Random rng = new Random();
 		public TimeSince timeSinceCreated = 0;
 		public int idleTimeout = 25;

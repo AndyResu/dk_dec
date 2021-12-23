@@ -18,7 +18,8 @@ Dodge snowballs to get to the top of the mountain and discover hidden secrets in
 > Facepunch - S&box
 >
 > These textures taken from:
-> Snow - https://ambientcg.com/view?id=Snow006 
+> Snow - https://ambientcg.com/view?id=Snow006
+> Snow2 - https://ambientcg.com/view?id=Snow004
 > Fence - https://www.sharetextures.com/textures/metal/chicken_wire_1/ 
 > 
 > Some code from:https://github.com/xezno/sbox-vr-minimal
@@ -26,5 +27,6 @@ Dodge snowballs to get to the top of the mountain and discover hidden secrets in
 >
 > These textures and models taken from Kabubu2's repository:
 > Snowball texture and model - https://github.com/Kabubu2/Terry_Cosmetics
+> 'Kong' - https://github.com/Kabubu2/Terry_Cosmetics
 
 Following: https://www.conventionalcommits.org/en/v1.0.0/

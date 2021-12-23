@@ -2,10 +2,11 @@
 
 namespace dkdGame
 {
-	partial class dkdPlayer : Player
+	partial class dkdPlayer : Sandbox.Player
 	{
 		public string viewType = "";
 		public Vector3 vrSpawn = new Vector3(580, 1088, 1212);
+		private Clothing.Container _clothing = new();
 		
 		public override void Respawn()
 		{
@@ -13,8 +14,10 @@ namespace dkdGame
 
 			Animator = new StandardPlayerAnimator();
 
-			Log.Info(viewType);
+			// Log.Info("tickles: " + viewType);
 			if(viewType.Equals("virst") || Client.IsUsingVr){
+				viewType = "virst";
+				Log.Info("Congrats, based cerebral: " + viewType);
 				Controller = new VrWalkController();
 				Animator = new VrPlayerAnimator();
 				Camera = new VrCamera();
@@ -34,7 +37,13 @@ namespace dkdGame
 			EnableHideInFirstPerson = true;
 			EnableShadowInFirstPerson = true;
 
-			base.Respawn();
+			if(!viewType.Equals("virst")){
+				base.Respawn();
+			}
+			if(!(viewType.Equals("first") || viewType.Equals("virst"))){
+				_clothing.LoadFromClient( Client );
+				_clothing.DressEntity( this );
+			}
 		}
 
 		public override void Simulate( Client cl )
