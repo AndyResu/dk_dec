@@ -53,6 +53,7 @@ namespace dkdGame
 		// public bool isGrabbingWithGrip = false;
 		public Entity itemGrabbed;
 		public Vector3 lastPos;
+		public int counte = 0;
 
 		[Event.Tick]
 		public void pickupItem()
@@ -83,7 +84,17 @@ namespace dkdGame
 				// drop item
 				isGrabbing = false;
 				Log.Info("ungrabe");
-				itemGrabbed.Velocity = (InputHand.Transform.Position - lastPos).Normal *100; // bad velocity
+				// itemGrabbed.Velocity = (InputHand.Transform.Position - lastPos).Normal *100; // bad velocity
+				if(counte == 0){
+					itemGrabbed.Position = new Vector3(536, 1072, 1244);
+					counte = 1;
+				}else if(counte == 1){
+					itemGrabbed.Position = new Vector3(532, 1100, 1244);
+					counte = 2;
+				}else if(counte == 2){
+					itemGrabbed.Position = new Vector3(532, 1148, 1268);
+					counte = 0;
+				}
 			}
 		}
 	}

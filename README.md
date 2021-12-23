@@ -10,7 +10,7 @@ Dodge snowballs to get to the top of the mountain and discover hidden secrets in
 
 ###### dk_dec
 ###### a S&box gamemode
-
+Look for 'Dankey Kang's December Map' in the S&box map list.
 
 
 ## Credits:
@@ -30,5 +30,7 @@ Dodge snowballs to get to the top of the mountain and discover hidden secrets in
 > 'Kong' - https://github.com/Kabubu2/Terry_Cosmetics
 >
 > Skybox by kindaw - https://kindaw.itch.io/skybox-textures
+>
+> JESS (soundscape) by https://github.com/Eagle-One-Development/sbox-just-enough-soundscapes/tree/current-release
 
 Following: https://www.conventionalcommits.org/en/v1.0.0/
