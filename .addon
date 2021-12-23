@@ -1,4 +1,23 @@
 {
+    "name": "Dankey Kang's December",
+    "type": "game",
+    "version": "1.0",
     "sharedassets": "*.*",
-    "type": "game"
+
+    "depends": 
+    [
+        "base"
+    ],
+
+    //
+    // Addons can contain multiple addons, describe them here
+    //
+    "gamemodes":
+    [
+        {
+            "name": "dkdGame",
+            "title": "Dankey Kang's December",
+            "description": "Dodge snowballs to get to the top of the mountain and discover hidden secrets in... DANKEY KANG'S DECEMBER."
+        }
+    ]
 }

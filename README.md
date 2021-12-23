@@ -28,5 +28,7 @@ Dodge snowballs to get to the top of the mountain and discover hidden secrets in
 > These textures and models taken from Kabubu2's repository:
 > Snowball texture and model - https://github.com/Kabubu2/Terry_Cosmetics
 > 'Kong' - https://github.com/Kabubu2/Terry_Cosmetics
+>
+> Skybox by kindaw - https://kindaw.itch.io/skybox-textures
 
 Following: https://www.conventionalcommits.org/en/v1.0.0/
